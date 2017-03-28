@@ -4,7 +4,7 @@
   <div class="form-group">
     <%= f.label :criterion_id, "Nama Kriteria 1 :", class: "control-label col-md-3 col-sm-3 col-xs-12" %>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <%= f.text_field :criterion_id, class: "form-control select2" %>
+          <%= collection_select('', '', Criterion.where(id: @nowCri[0]), :id, :name, {}, {:class => "form-control", disabled: true}) %>
       </div>
   </div>
   <div class="ln_solid"></div>
@@ -18,11 +18,12 @@
   <div class="form-group">
     <%= f.label :other_criterion_id, "Nama Kriteria 2 :", class: "control-label col-md-3 col-sm-3 col-xs-12" %>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <%= f.text_field :other_criterion_id, class: "form-control select2" %>
+          <%= collection_select('', '', Criterion.where(id: @nowCri[1]), :id, :name, {}, {:class => "form-control", disabled: true}) %>
       </div>
   </div>
   <div class="ln_solid"></div>
-
+  <%= hidden_field(:criterion_comparison, :criterion_id, :value => @nowCri[0]) %>
+  <%= hidden_field(:criterion_comparison, :other_criterion_id, :value => @nowCri[1]) %>
   <div class="form-group">
     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
       <%= f.submit "Selanjutnya", class: "btn btn-primary pull-right" %>

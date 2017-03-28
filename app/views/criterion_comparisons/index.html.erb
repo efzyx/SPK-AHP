@@ -1,1 +1,50 @@
-<%= render 'new' %>
+<% @nowCri = @curretCri %>
+<% if @nowCri[1] == nil %>
+  <div class="callout callout-info">
+    <h4>Selamat!</h4>
+
+    <p>Perbandingan Kriteria sudah lengkap!</p>
+  </div>
+<% else %>
+<%= render 'form' %>
+<% end %>
+
+<hr>
+<% @url = alternatives_url %>
+<% @aksi = "Perbandingan" %>
+<% @objek = "Kriteria" %>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <td>#</td>
+                <td>Kriteria 1</td>
+                <td>Banding</td>
+                <td>Kriteria 2</td>
+                <td>Aksi</td>
+              </tr>
+            </thead>
+            <tbody>
+              <% nomor = 1 %>
+              <% @ccs.each do |c| %>
+              <tr>
+                <td><%= nomor %></td>
+                <td><%= c.criterion.name %></td>
+                <td><%= c.comparison %></td>
+                <td><%= c.other_criterion.name %></td>
+                <td><%= link_to 'Ubah', edit_criterion_comparison_path(c), class: 'btn btn-warning' %>
+                   <%= link_to 'Hapus', c, method: :delete, class: 'btn btn-danger' %></td>
+                <td></td>
+              </tr>
+              <% nomor+=1 %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
