@@ -1,0 +1,34 @@
+<% @url = alternatives_url %>
+<% @aksi = "List" %>
+<% @objek = "Kriteria" %>
+<%= link_to 'Tambah Kriteria', new_criterion_path, class: 'btn btn-primary pull-right' %>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <td>#</td>
+                <td>Nama Kriteria</td>
+                <td>Aksi</td>
+              </tr>
+            </thead>
+            <tbody>
+              <% nomor = 1 %>
+              <% @criterions.each do |c| %>
+              <tr>
+                <td><%= nomor %></td>
+                <td><%= c.name %></td>
+                <td><%= link_to 'Ubah', edit_criterion_path(c), class: 'btn btn-warning' %>   <%= link_to 'Hapus', c, method: :delete, class: 'btn btn-danger' %></td>
+                <td></td>
+              </tr>
+              <% nomor+=1 %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

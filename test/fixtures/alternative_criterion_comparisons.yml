@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  alternative: one
+  criterion: one
+  comparison: 1.5
+  other_criterion: one
+
+two:
+  alternative: two
+  criterion: two
+  comparison: 1.5
+  other_criterion: two
