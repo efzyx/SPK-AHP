@@ -1,6 +1,47 @@
 class CriterionComparisonsController < ApplicationController
   before_action :set_cc, only: [:edit, :update, :destroy]
   def index
+    @data = get_comparison_table
+    @c = 0
+    @sumFix = []
+    @data.each_with_index do |fd1, index1|
+      @sumOne = 0
+      @data.each_with_index do |fd, index|
+        @sumOne += @data[index][index1]
+      end
+      @sumFix[@c] = @sumOne
+      @c += 1
+    end
+
+    @s = 0
+    @normalFix = []
+    @average = []
+    @data.each_with_index do |fd1, index1|
+      @sumAv = 0
+      @norm = []
+      @l = 0
+      @data.each_with_index do |fd, index|
+        @norm[@l] = @data[index1][index] / @sumFix[index]
+        @sumAv += @norm[@l]
+        @l += 1
+      end
+      @average[@s] = @sumAv/@data.count
+      @normalFix[@s] = @norm
+      @s += 1
+    end
+
+
+    @x = 0
+    @sumNormalFix = []
+    @normalFix.each_with_index do |fd1, index1|
+      @sumOne = 0
+      @normalFix.each_with_index do |fd, index|
+        @sumOne += @normalFix[index][index1]
+      end
+      @sumNormalFix[@x] = @sumOne
+      @x += 1
+    end
+    @sumNormalFix[@x] = @average.inject(0, :+)
   end
 
   def new
@@ -97,6 +138,37 @@ class CriterionComparisonsController < ApplicationController
   end
 
   def get_comparison_table
-    
+    @kriteria = Criterion.all
+    @sum = @kriteria.count
+    @data = []
+    @n = 0
+    @kriteria.each do |k|
+      @dt = CriterionComparison.where(criterion_id: k.id).order(other_criterion_id: :asc)
+      @i = 0
+      @dat = []
+      @dt.each do |dt|
+        @dat[@i] = dt.comparison
+        @i += 1
+      end
+      @data[@n] = @dat
+      @n += 1
+    end
+    @fixdata = Array.new(@sum) { Array.new(@sum) }
+
+    @kriteria.each_with_index do |k, i|
+      (0..i).each do |n|
+        if i == n
+          @fixdata[i][n] = 1.to_f
+          @k = n+1
+          @data[i].each do |d|
+            @fixdata[i][@k] = d
+            @k += 1
+          end
+        elsif n < i
+          @fixdata[i][n] = 1/@fixdata[n][i]
+        end
+      end
+    end
+    return @fixdata
   end
 end
