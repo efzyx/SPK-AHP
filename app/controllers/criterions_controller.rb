@@ -19,6 +19,7 @@ class CriterionsController < ApplicationController
           redirect_to new_criterion_path, notice: 'Kriteria berhasil disimpan'
         else
           render :new
+          flash[:warning] = 'Gagal simpan, periksa kembali'
         end
     end
 
@@ -27,6 +28,7 @@ class CriterionsController < ApplicationController
           redirect_to edit_criterion_path, notice: 'Kriteria berhasil dirubah.'
         else
           render :edit
+          flash[:warning] = 'Gagal update, periksa kembali'
         end
     end
 

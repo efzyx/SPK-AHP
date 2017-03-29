@@ -19,6 +19,7 @@ class AlternativesController < ApplicationController
         redirect_to new_alternative_path, notice: 'Alternatif berhasil disimpan'
       else
         render :new
+        flash[:warning] = 'Gagal simpan, periksa kembali'
       end
   end
 
@@ -27,6 +28,7 @@ class AlternativesController < ApplicationController
         redirect_to edit_alternative_path, notice: 'Alternatif was successfully updated.'
       else
         render :edit
+        flash[:warning] = 'Gagal update, periksa kembali'
       end
   end
 

@@ -1,6 +1,19 @@
-<% @url = alternatives_url %>
+<% @url = alternative_alternative_criterion_comparisons_url %>
 <% @aksi = @alternative.name %>
 <% @objek = "Perbandingan Kriteria" %>
+<% if flash[:notice] %>
+<div class="callout callout-info">
+  <p><%= flash[:notice] %></p>
+</div>
+<% end %>
+
+<% if flash[:warning] %>
+<div class="callout callout-danger">
+  <p><%= flash[:warning] %></p>
+</div>
+<% end %>
+
+
 <% unless @acc == nil %>
     <% @nowCri = @curretCri %>
     <% if @nowCri[1] == nil %>

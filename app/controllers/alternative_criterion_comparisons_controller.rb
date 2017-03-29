@@ -45,7 +45,8 @@ class AlternativeCriterionComparisonsController < ApplicationController
         @sumNormalFix[@x] = @average.inject(0, :+)
 
     rescue
-        redirect_to new_alternative_alternative_criterion_comparison_path(@alternative), notice: 'Lengkapi Perbandingan terlebih dahulu'
+        redirect_to new_alternative_alternative_criterion_comparison_path(@alternative)
+        flash[:warning] = 'Lengkapi Perbandingan terlebih dahulu'
     end
   end
 
@@ -61,9 +62,10 @@ class AlternativeCriterionComparisonsController < ApplicationController
   def create
     @acc = AlternativeCriterionComparison.new(acc_params)
     if @acc.save
-      redirect_to  new_alternative_alternative_criterion_comparison_path(@alternative)
+      redirect_to  new_alternative_alternative_criterion_comparison_path(@alternative), notice: 'Berhasil menambahkan perbandingan'
     else
       redirect_to new_alternative_alternative_criterion_comparison_path(@alternative)
+      flash[:warning] = 'Gagal menambahkan, periksa kembali'
     end
   end
 
@@ -71,6 +73,19 @@ class AlternativeCriterionComparisonsController < ApplicationController
     @curretCri = [@acc.criterion_id, @acc.other_criterion_id]
   end
 
+  def update
+    if @acc.update(cc_params)
+      redirect_to new_alternative_alternative_criterion_comparison_path(@alternative), notice: 'Berhasil update perbandingan'
+    else
+      redirect_to new_alternative_alternative_criterion_comparison_path(@alternative)
+      flash[:warning] = 'Gagal update, periksa kembali'
+    end
+  end
+
+  def destroy
+    @acc.destroy
+    redirect_to new_alternative_alternative_criterion_comparison_path(@alternative), notice: 'Perbandingan berhasil dihapus'
+  end
 
   private
 

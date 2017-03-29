@@ -1,3 +1,15 @@
+<% if flash[:notice] %>
+<div class="callout callout-info">
+  <p><%= flash[:notice] %></p>
+</div>
+<% end %>
+
+<% if flash[:warning] %>
+<div class="callout callout-danger">
+  <p><%= flash[:warning] %></p>
+</div>
+<% end %>
+
 <% @nowCri = @curretCri %>
 <% if @nowCri[1] == nil %>
   <div class="callout callout-info">
@@ -11,7 +23,7 @@
 <% end %>
 
 <hr>
-<% @url = alternatives_url %>
+<% @url = criterion_comparisons_url %>
 <% @aksi = "Perbandingan" %>
 <% @objek = "Kriteria" %>
 <hr>

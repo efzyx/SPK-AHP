@@ -1,3 +1,15 @@
+<% if flash[:notice] %>
+  <div class="callout callout-info">
+    <p><%= flash[:notice] %></p>
+  </div>
+<% end %>
+
+<% if flash[:warning] %>
+  <div class="callout callout-danger">
+    <p><%= flash[:warning] %></p>
+  </div>
+<% end %>
+
 <% @url = alternatives_url %>
 <% @aksi = "List" %>
 <% @objek = "Alternatif" %>

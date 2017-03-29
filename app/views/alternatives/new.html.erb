@@ -1,5 +1,15 @@
 <% @url = alternatives_url %>
 <% @aksi = "Tambah" %>
 <% @objek = "Alternatif" %>
-<%= notice %>
+<% if flash[:notice] %>
+<div class="callout callout-info">
+  <p><%= flash[:notice] %></p>
+</div>
+<% end %>
+
+<% if flash[:warning] %>
+<div class="callout callout-danger">
+  <p><%= flash[:warning] %></p>
+</div>
+<% end %>
 <%= render 'form' %>

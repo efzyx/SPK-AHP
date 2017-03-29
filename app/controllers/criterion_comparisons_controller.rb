@@ -1,47 +1,52 @@
 class CriterionComparisonsController < ApplicationController
   before_action :set_cc, only: [:edit, :update, :destroy]
   def index
-    @data = get_comparison_table
-    @c = 0
-    @sumFix = []
-    @data.each_with_index do |fd1, index1|
-      @sumOne = 0
-      @data.each_with_index do |fd, index|
-        @sumOne += @data[index][index1]
-      end
-      @sumFix[@c] = @sumOne
-      @c += 1
-    end
+    begin
+        @data = get_comparison_table
+        @c = 0
+        @sumFix = []
+        @data.each_with_index do |fd1, index1|
+          @sumOne = 0
+          @data.each_with_index do |fd, index|
+            @sumOne += @data[index][index1]
+          end
+          @sumFix[@c] = @sumOne
+          @c += 1
+        end
 
-    @s = 0
-    @normalFix = []
-    @average = []
-    @data.each_with_index do |fd1, index1|
-      @sumAv = 0
-      @norm = []
-      @l = 0
-      @data.each_with_index do |fd, index|
-        @norm[@l] = @data[index1][index] / @sumFix[index]
-        @sumAv += @norm[@l]
-        @l += 1
-      end
-      @average[@s] = @sumAv/@data.count
-      @normalFix[@s] = @norm
-      @s += 1
-    end
+        @s = 0
+        @normalFix = []
+        @average = []
+        @data.each_with_index do |fd1, index1|
+          @sumAv = 0
+          @norm = []
+          @l = 0
+          @data.each_with_index do |fd, index|
+            @norm[@l] = @data[index1][index] / @sumFix[index]
+            @sumAv += @norm[@l]
+            @l += 1
+          end
+          @average[@s] = @sumAv/@data.count
+          @normalFix[@s] = @norm
+          @s += 1
+        end
 
 
-    @x = 0
-    @sumNormalFix = []
-    @normalFix.each_with_index do |fd1, index1|
-      @sumOne = 0
-      @normalFix.each_with_index do |fd, index|
-        @sumOne += @normalFix[index][index1]
+        @x = 0
+        @sumNormalFix = []
+        @normalFix.each_with_index do |fd1, index1|
+          @sumOne = 0
+          @normalFix.each_with_index do |fd, index|
+            @sumOne += @normalFix[index][index1]
+          end
+          @sumNormalFix[@x] = @sumOne
+          @x += 1
+        end
+        @sumNormalFix[@x] = @average.inject(0, :+)
+      rescue
+        redirect_to new_criterion_comparison_path
+        flash[:warning] = 'Lengkapi Perbandingan terlebih dahulu'
       end
-      @sumNormalFix[@x] = @sumOne
-      @x += 1
-    end
-    @sumNormalFix[@x] = @average.inject(0, :+)
   end
 
   def new
@@ -57,7 +62,8 @@ class CriterionComparisonsController < ApplicationController
     if @cc.update(cc_params)
       redirect_to new_criterion_comparison_path, notice: 'Berhasil update perbandingan'
     else
-      render :new
+      redirect_to new_criterion_comparison_path
+      flash[:warning] = 'Gagal update, periksa kembali data'
     end
   end
 
@@ -67,6 +73,7 @@ class CriterionComparisonsController < ApplicationController
       redirect_to new_criterion_comparison_path, notice: 'Berhasil menambahkan perbandingan'
     else
       redirect_to new_criterion_comparison_path
+      flash[:warning] = 'Gagal menyimpan, periksa kembali data'
     end
   end
 
