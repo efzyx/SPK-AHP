@@ -12,9 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require adminlte
 //= require bootstrap-sprockets
-//= require turbolinks
+//= require adminlte
 //= require Chart.bundle
 //= require chartkick
 //= require icheck
