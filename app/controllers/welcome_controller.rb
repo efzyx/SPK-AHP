@@ -25,7 +25,7 @@ class WelcomeController < ApplicationController
         end
       rescue
         @dataAve = nil
-        flash[:warning] = 'Error! Periksa kelengkapan kriteria dan lengkapi perbandingan'
+        flash[:warning] = 'Error! Periksa kelengkapan data'
       end
   end
 

@@ -34,7 +34,7 @@ class CriterionsController < ApplicationController
 
     def destroy
       @criterion.destroy
-      redirect_to alternatives_url, notice: 'Kriteria berhasil dihapus'
+      redirect_to criterions_url, notice: 'Kriteria berhasil dihapus'
     end
 
     private

@@ -15,6 +15,7 @@
 <% @objek = "Alternatif" %>
 <%= link_to 'Tambah Alternatif', new_alternative_path, class: 'btn btn-primary pull-right' %>
 <hr>
+<% unless @alternatives.first == nil %>
 <div class="row">
   <div class="col-xs-12">
     <div class="box">
@@ -47,3 +48,4 @@
       </div>
     </div>
   </div>
+  <% end %>

@@ -49,7 +49,11 @@ class CriterionComparisonsController < ApplicationController
 
   def new
     @cc = CriterionComparison.new
-    @curretCri = get_comparison_criterion
+    begin
+      @curretCri = get_comparison_criterion
+    rescue
+      flash[:warning] = 'Kriteria tidak mencukupi untuk melakukan perbandingan'
+    end
   end
 
   def edit

@@ -50,46 +50,6 @@ class AlternativeCriterionComparisonsController < ApplicationController
     end
   end
 
-  # def self.get_index
-  #   @allData = []
-  #   @alter = Alternative.all
-  #   @alter.each_with_index do |al, alindex|
-  #     @kriteria = Criterion.all
-  #     @sum = @kriteria.count
-  #     @data = []
-  #     @n = 0
-  #     @kriteria.each do |k|
-  #       @dt = AlternativeCriterionComparison.where(alternative_id: al.id, criterion_id: k.id).order(other_criterion_id: :asc)
-  #       @i = 0
-  #       @dat = []
-  #       @dt.each do |dt|
-  #         @dat[@i] = dt.comparison
-  #         @i += 1
-  #       end
-  #       @data[@n] = @dat
-  #       @n += 1
-  #     end
-  #     @fixdata = Array.new(@sum) { Array.new(@sum) }
-  #
-  #     @kriteria.each_with_index do |k, i|
-  #       (0..i).each do |n|
-  #         if i == n
-  #           @fixdata[i][n] = 1.to_f
-  #           @k = n+1
-  #           @data[i].each do |d|
-  #             @fixdata[i][@k] = d
-  #             @k += 1
-  #           end
-  #         elsif n < i
-  #           @fixdata[i][n] = 1/@fixdata[n][i]
-  #         end
-  #       end
-  #     end
-  #     @allData[alindex] = @fixdata
-  #   end
-  #   return @allData
-  # end
-
   def self.get_average
     @altr = Alternative.all
     @n = 0

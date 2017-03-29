@@ -1,3 +1,6 @@
+<% @url = criterion_comparisons_url %>
+<% @aksi = "Perbandingan" %>
+<% @objek = "Kriteria" %>
 <% if flash[:notice] %>
 <div class="callout callout-info">
   <p><%= flash[:notice] %></p>
@@ -9,7 +12,7 @@
   <p><%= flash[:warning] %></p>
 </div>
 <% end %>
-
+<% unless @curretCri == nil %>
 <% @nowCri = @curretCri %>
 <% if @nowCri[1] == nil %>
   <div class="callout callout-info">
@@ -61,3 +64,4 @@
       </div>
     </div>
   </div>
+<% end %>
