@@ -52,3 +52,4 @@ source "http://insecure.rails-assets.org" do
 end
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
+gem 'chartkick'
