@@ -1,0 +1,2 @@
+module ALternaticeCriterionComparisonHelper
+end

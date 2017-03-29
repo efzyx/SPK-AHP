@@ -1,0 +1,60 @@
+<% @url = alternatives_url %>
+<% @aksi = @alternative.name %>
+<% @objek = "Perbandingan Kriteria" %>
+<% unless @acc == nil %>
+    <% @nowCri = @curretCri %>
+    <% if @nowCri[1] == nil %>
+      <div class="callout callout-info">
+        <h4>Selamat!</h4>
+
+        <p>Perbandingan Kriteria untuk <%= @alternative.name %> sudah lengkap!</p>
+      </div>
+      <%= link_to 'Kembali', criterion_comparisons_path, class: 'btn btn-info' %>
+    <% else %>
+    <%= render 'form' %>
+    <% end %>
+
+    <hr>
+
+    <hr>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Kriteria 1</th>
+                    <th>Banding</th>
+                    <th>Kriteria 2</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% nomor = 1 %>
+                  <% @ccs.each do |c| %>
+                  <tr>
+                    <td><%= nomor %></td>
+                    <td><%= c.criterion.name %></td>
+                    <td><%= c.comparison %></td>
+                    <td><%= c.other_criterion.name %></td>
+                    <td><%= link_to 'Ubah', edit_alternative_alternative_criterion_comparison_path(c.alternative, c), class: 'btn btn-warning' %>
+                        &emsp;
+                       <%= link_to 'Hapus', [c.alternative, c], method: :delete, class: 'btn btn-danger' %></td>
+                  </tr>
+                  <% nomor+=1 %>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+    <div class="callout callout-danger">
+      <h4>Error!</h4>
+
+      <p>Kriteria belum mencukupi untuk perbandingan!</p>
+    </div>
+    <% end %>

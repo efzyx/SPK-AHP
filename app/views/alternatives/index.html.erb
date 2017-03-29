@@ -21,8 +21,11 @@
               <tr>
                 <td><%= nomor %></td>
                 <td><%= a.name %></td>
-                <td><%= link_to 'Ubah', edit_alternative_path(a), class: 'btn btn-warning' %>   <%= link_to 'Hapus', a, method: :delete, class: 'btn btn-danger' %></td>
-                <td></td>
+                <td><%= link_to 'Perbandingan', alternative_alternative_criterion_comparisons_path(a), class: 'btn btn-primary' %>
+                  &emsp;
+                  <%= link_to 'Ubah', edit_alternative_path(a), class: 'btn btn-warning' %>
+                  &emsp;
+                  <%= link_to 'Hapus', a, method: :delete, class: 'btn btn-danger' %></td>
               </tr>
               <% nomor+=1 %>
               <% end %>

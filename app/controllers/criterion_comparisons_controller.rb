@@ -46,7 +46,6 @@ class CriterionComparisonsController < ApplicationController
 
   def new
     @cc = CriterionComparison.new
-    @criterions = $cri
     @curretCri = get_comparison_criterion
   end
 
