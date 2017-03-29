@@ -50,6 +50,87 @@ class AlternativeCriterionComparisonsController < ApplicationController
     end
   end
 
+  def self.get_index
+    @allData = []
+    @alter = Alternative.all
+    @alter.each_with_index do |al, alindex|
+      @kriteria = Criterion.all
+      @sum = @kriteria.count
+      @data = []
+      @n = 0
+      @kriteria.each do |k|
+        @dt = AlternativeCriterionComparison.where(alternative_id: al.id, criterion_id: k.id).order(other_criterion_id: :asc)
+        @i = 0
+        @dat = []
+        @dt.each do |dt|
+          @dat[@i] = dt.comparison
+          @i += 1
+        end
+        @data[@n] = @dat
+        @n += 1
+      end
+      @fixdata = Array.new(@sum) { Array.new(@sum) }
+
+      @kriteria.each_with_index do |k, i|
+        (0..i).each do |n|
+          if i == n
+            @fixdata[i][n] = 1.to_f
+            @k = n+1
+            @data[i].each do |d|
+              @fixdata[i][@k] = d
+              @k += 1
+            end
+          elsif n < i
+            @fixdata[i][n] = 1/@fixdata[n][i]
+          end
+        end
+      end
+      @allData[alindex] = @fixdata
+    end
+    return @allData
+  end
+
+  def self.get_average
+    @altr = Alternative.all
+    @n = 0
+    @averageFix = []
+    @altr.each_with_index do |altrr, indexho|
+      @averageTemp = []
+      @data = self.get_comparison_table(altrr.id)
+      @c = 0
+      @sumFix = []
+      @data.each_with_index do |fd1, index1|
+        @sumOne = 0
+        @data.each_with_index do |fd, index|
+          @sumOne += @data[index][index1]
+        end
+        @sumFix[@c] = @sumOne
+        @c += 1
+      end
+
+      @s = 0
+      @normalFix = []
+      @average = []
+      @data.each_with_index do |fd1, index1|
+        @sumAv = 0
+        @norm = []
+        @l = 0
+        @data.each_with_index do |fd, index|
+          @norm[@l] = @data[index1][index] / @sumFix[index]
+          @sumAv += @norm[@l]
+          @l += 1
+        end
+        @average[@s] = @sumAv/@data.count
+        @normalFix[@s] = @norm
+        @averageTemp = @average
+        @s += 1
+      end
+      @averageFix[indexho] = @averageTemp
+    end
+
+    return @averageFix
+  end
+
   def new
     if Criterion.count > 1
       @acc = AlternativeCriterionComparison.new(alternative_id: params[:alternative_id])
@@ -161,6 +242,41 @@ class AlternativeCriterionComparisonsController < ApplicationController
     @n = 0
     @kriteria.each do |k|
       @dt = AlternativeCriterionComparison.where(alternative_id: @alternative.id, criterion_id: k.id).order(other_criterion_id: :asc)
+      @i = 0
+      @dat = []
+      @dt.each do |dt|
+        @dat[@i] = dt.comparison
+        @i += 1
+      end
+      @data[@n] = @dat
+      @n += 1
+    end
+    @fixdata = Array.new(@sum) { Array.new(@sum) }
+
+    @kriteria.each_with_index do |k, i|
+      (0..i).each do |n|
+        if i == n
+          @fixdata[i][n] = 1.to_f
+          @k = n+1
+          @data[i].each do |d|
+            @fixdata[i][@k] = d
+            @k += 1
+          end
+        elsif n < i
+          @fixdata[i][n] = 1/@fixdata[n][i]
+        end
+      end
+    end
+    return @fixdata
+  end
+
+  def self.get_comparison_table(*id)
+    @kriteria = Criterion.all
+    @sum = @kriteria.count
+    @data = []
+    @n = 0
+    @kriteria.each do |k|
+      @dt = AlternativeCriterionComparison.where(alternative_id: id, criterion_id: k.id).order(other_criterion_id: :asc)
       @i = 0
       @dat = []
       @dt.each do |dt|

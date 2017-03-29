@@ -9,7 +9,9 @@
     <p><%= flash[:warning] %></p>
   </div>
 <% end %>
-
+<% @url = criterion_comparisons_url %>
+<% @aksi = "Normalisasi" %>
+<% @objek = "Kriteria" %>
 <%= link_to 'Lengkapi Perbandingan', new_criterion_comparison_path, class: 'btn btn-primary pull-right' %>
 <hr>
 <div class="row">

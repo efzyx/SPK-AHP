@@ -22,7 +22,7 @@
 
         <p>Perbandingan Kriteria untuk <%= @alternative.name %> sudah lengkap!</p>
       </div>
-      <%= link_to 'Kembali', criterion_comparisons_path, class: 'btn btn-info' %>
+      <%= link_to 'Kembali', alternative_alternative_criterion_comparisons_path, class: 'btn btn-info' %>
     <% else %>
     <%= render 'form' %>
     <% end %>
