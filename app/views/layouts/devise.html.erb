@@ -1,0 +1,14 @@
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'true' %>
+<body class="hold-transition login-page">
+<%= yield %>
+<%= javascript_include_tag 'application' %>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
+</body>

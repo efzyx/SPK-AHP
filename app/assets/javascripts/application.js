@@ -17,4 +17,5 @@
 //= require turbolinks
 //= require Chart.bundle
 //= require chartkick
+//= require icheck
 //= require_tree .

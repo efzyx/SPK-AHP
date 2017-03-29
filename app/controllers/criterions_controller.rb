@@ -1,4 +1,5 @@
 class CriterionsController < ApplicationController
+  before_action :authenticate_user! , except: [:index]
     before_action :set_criterion, only: [:edit, :update, :destroy]
 
     def index

@@ -1,4 +1,5 @@
 class AlternativeCriterionComparisonsController < ApplicationController
+  before_action :authenticate_user! , except: [:index]
   before_action :set_acc, only: [:edit, :update, :destroy]
   before_action :set_alt
   def index

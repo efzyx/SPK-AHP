@@ -20,11 +20,18 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> User
-            </a>
+            <% if user_signed_in? %>
+            <%= link_to current_user.email %>
+            <% else %>
+            <a href="#">Visitor</a>
+            <% end %>
           </li>
           <li class="dropdown user user-menu">
-            <a href="#" class="fa fa-sign-out"></a>
+            <% if user_signed_in? %>
+            <%=  link_to '', destroy_user_session_path, method: :delete, class: "fa fa-sign-out" %>
+            <% else %>
+            <%=  link_to '', new_user_session_path, class: "fa fa-sign-in" %>
+            <% end %>
           </li>
         </ul>
       </div>

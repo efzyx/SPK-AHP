@@ -1,4 +1,5 @@
 class AlternativesController < ApplicationController
+  before_action :authenticate_user! , except: [:index]
   before_action :set_alternative, only: [:edit, :update, :destroy]
 
   def index

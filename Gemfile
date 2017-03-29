@@ -53,3 +53,5 @@ end
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'chartkick'
+gem 'devise'
+gem 'icheck-rails'
