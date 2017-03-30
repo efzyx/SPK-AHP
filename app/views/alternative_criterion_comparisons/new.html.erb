@@ -13,7 +13,6 @@
 </div>
 <% end %>
 
-
 <% unless @acc == nil %>
     <% @nowCri = @curretCri %>
     <% if @nowCri[1] == nil %>
@@ -28,8 +27,9 @@
     <% end %>
 
     <hr>
-
+    <%= link_to 'Ke Kriteria', alternatives_path, class: 'btn btn-primary pull-left' %>
     <hr>
+    <br>
     <% unless @ccs.first == nil %>
     <div class="row">
       <div class="col-xs-12">
