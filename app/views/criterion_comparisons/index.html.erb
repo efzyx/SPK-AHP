@@ -14,7 +14,7 @@
 <% @objek = "Kriteria" %>
 <%= link_to 'Lengkapi Perbandingan', new_criterion_comparison_path, class: 'btn btn-primary pull-right' %>
 <hr>
-<% unless @data.empty? %>
+<% unless @data.count < 2 %>
 <div class="row">
   <div class="col-xs-12">
     <div class="box">

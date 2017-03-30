@@ -41,6 +41,9 @@ class CriterionsController < ApplicationController
     end
 
     def destroy
+      AlternativeCriterionComparison.where(criterion_id: @criterion.id).destroy_all
+      CriterionComparison.where(criterion_id: @criterion.id).destroy_all
+      CriterionComparison.where(other_criterion_id: @criterion.id).destroy_all
       @criterion.destroy
       redirect_to criterions_url, notice: 'Kriteria berhasil dihapus'
     end

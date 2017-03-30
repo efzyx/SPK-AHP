@@ -34,6 +34,8 @@ class AlternativesController < ApplicationController
   end
 
   def destroy
+    AlternativeCriterionComparison.where(alternative_id: @alternative.id).destroy_all
+    AlternativeCriterionComparison.where(other_alternative_id: @alternative.id).destroy_all
     @alternative.destroy
     redirect_to alternatives_url, notice: 'Alternatif was successfully destroyed.'
   end
