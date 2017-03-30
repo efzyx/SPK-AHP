@@ -27,20 +27,18 @@
             <thead>
               <tr>
                 <th>#</th>
-                <% @alternatives.each do |c| %>
+                <% @criterions.each do |c| %>
                 <th><%= c.name %></th>
                 <% end %>
               </tr>
             </thead>
             <tbody>
-              <% @criterion = @criterions.first %>
-              <% @dataAve.each do |d| %>
+              <% @alternatives.each_with_index do |d, ind| %>
               <tr>
-                <th><%= @criterion.name %></th>
-                <% d.each_with_index do |dd, i| %>
-                <td><%= dd.round(3) %></td>
+                <th><%= d.name %></th>
+                <% @criterions.each_with_index do |dd, i| %>
+                <td><%= @dataAve[i][ind].round(3) %></td>
                 <% end %>
-                <% @criterion = @criterion.next %>
               </tr>
               <% end %>
             </tbody>
