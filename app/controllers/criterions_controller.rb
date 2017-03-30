@@ -3,7 +3,7 @@ class CriterionsController < ApplicationController
     before_action :set_criterion, only: [:edit, :update, :destroy]
 
     def index
-      @criterions = Criterion.all
+      @criterions = Criterion.all.order(id: :asc)
     end
 
     def new

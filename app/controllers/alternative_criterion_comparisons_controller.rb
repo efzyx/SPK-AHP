@@ -52,7 +52,7 @@ class AlternativeCriterionComparisonsController < ApplicationController
   end
 
   def self.get_average
-    @altr = Alternative.all
+    @altr = Alternative.all.order(id: :asc)
     @n = 0
     @averageFix = []
     @altr.each_with_index do |altrr, indexho|
@@ -145,7 +145,7 @@ class AlternativeCriterionComparisonsController < ApplicationController
   end
 
   def get_comparison_criterion
-    @cri = Criterion.all unless Criterion.nil?
+    @cri = Criterion.all.order(id: :asc) unless Criterion.nil?
     @ccs = AlternativeCriterionComparison.where(alternative_id: @alternative.id).order(criterion_id: :asc, other_criterion_id: :asc)
     @sumCri = @cri.count
     @curretCri1 = nil
@@ -197,7 +197,7 @@ class AlternativeCriterionComparisonsController < ApplicationController
   end
 
   def get_comparison_table
-    @kriteria = Criterion.all
+    @kriteria = Criterion.all.order(id: :asc)
     @sum = @kriteria.count
     @data = []
     @n = 0
@@ -232,7 +232,7 @@ class AlternativeCriterionComparisonsController < ApplicationController
   end
 
   def self.get_comparison_table(*id)
-    @kriteria = Criterion.all
+    @kriteria = Criterion.all.order(id: :asc)
     @sum = @kriteria.count
     @data = []
     @n = 0

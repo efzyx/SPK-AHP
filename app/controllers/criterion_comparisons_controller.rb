@@ -123,7 +123,7 @@ class CriterionComparisonsController < ApplicationController
   end
 
   def get_comparison_criterion
-    @cri = Criterion.all unless Criterion.nil?
+    @cri = Criterion.all.order(id: :asc) unless Criterion.nil?
     @ccs = CriterionComparison.all.order(criterion_id: :asc, other_criterion_id: :asc)
     @sumCri = @cri.count
     @curretCri1 = nil
@@ -179,7 +179,7 @@ class CriterionComparisonsController < ApplicationController
   end
 
   def get_comparison_table
-    @kriteria = Criterion.all
+    @kriteria = Criterion.all.order(id: :asc)
     @sum = @kriteria.count
     @data = []
     @n = 0
@@ -214,7 +214,7 @@ class CriterionComparisonsController < ApplicationController
   end
 
   def self.get_comparison_table
-    @kriteria = Criterion.all
+    @kriteria = Criterion.all.order(id: :asc)
     @sum = @kriteria.count
     @data = []
     @n = 0
