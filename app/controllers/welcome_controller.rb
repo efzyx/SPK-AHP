@@ -1,19 +1,13 @@
 class WelcomeController < ApplicationController
   require 'matrix'
   def index
-    begin
+    # begin
         @dataAve = getAverageAlt
         @aveCri = getAverageCri
         @alternatives = Alternative.all
         @criterions = Criterion.all
-        @matriksAlt = nil
-        @matriksCri = nil
-        @dataAve.each do |d|
-            @matriksAlt = Matrix.rows(@matriksAlt.to_a << d)
-        end
-        @aveCri.each do |c|
-          @matriksCri = Matrix.rows(@matriksCri.to_a << [c])
-        end
+        @matriksAlt = Matrix.columns(@dataAve)
+        @matriksCri = Matrix.column_vector(@aveCri)
 
         @matriksResult = @matriksAlt * @matriksCri
         @result = @matriksResult.to_a
@@ -23,10 +17,10 @@ class WelcomeController < ApplicationController
           @reschart[ind] = [@altNow.name, r]
           @altNow = @altNow.next
         end
-      rescue
-        @dataAve = nil
-        flash[:warning] = 'Error! Periksa kelengkapan data'
-      end
+      # rescue
+      #   @dataAve = nil
+      #   flash[:warning] = 'Error! Periksa kelengkapan data'
+      # end
   end
 
   def getAverageAlt

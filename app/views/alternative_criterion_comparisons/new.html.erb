@@ -1,5 +1,5 @@
-<% @url = alternative_alternative_criterion_comparisons_url %>
-<% @aksi = @alternative.name %>
+<% @url = criterion_alternative_criterion_comparisons_url %>
+<% @aksi = @criterion.name %>
 <% @objek = "Perbandingan Kriteria" %>
 <% if flash[:notice] %>
 <div class="callout callout-info">
@@ -14,20 +14,20 @@
 <% end %>
 
 <% unless @acc == nil %>
-    <% @nowCri = @curretCri %>
-    <% if @nowCri[1] == nil %>
+    <% @nowAlt = @curretAlt %>
+    <% if @nowAlt[1] == nil %>
       <div class="callout callout-info">
         <h4>Selamat!</h4>
 
-        <p>Perbandingan Kriteria untuk <%= @alternative.name %> sudah lengkap!</p>
+        <p>Perbandingan Alternatif untuk <%= @criterion.name %> sudah lengkap!</p>
       </div>
-      <%= link_to 'Kembali', alternative_alternative_criterion_comparisons_path, class: 'btn btn-info' %>
+      <%= link_to 'Kembali', criterion_alternative_criterion_comparisons_path, class: 'btn btn-info' %>
     <% else %>
     <%= render 'form' %>
     <% end %>
 
     <hr>
-    <%= link_to 'Ke Kriteria', alternatives_path, class: 'btn btn-primary pull-left' %>
+    <%= link_to 'Ke Kriteria', criterions_path, class: 'btn btn-primary pull-left' %>
     <hr>
     <br>
     <% unless @ccs.first == nil %>
@@ -39,9 +39,9 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Kriteria 1</th>
+                    <th>Alternatif 1 1</th>
                     <th>Banding</th>
-                    <th>Kriteria 2</th>
+                    <th>Alternatif 2</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -50,12 +50,12 @@
                   <% @ccs.each do |c| %>
                   <tr>
                     <td><%= nomor %></td>
-                    <td><%= c.criterion.name %></td>
+                    <td><%= c.alternative.name %></td>
                     <td><%= c.comparison %></td>
-                    <td><%= c.other_criterion.name %></td>
-                    <td><%= link_to 'Ubah', edit_alternative_alternative_criterion_comparison_path(c.alternative, c), class: 'btn btn-warning' %>
+                    <td><%= c.other_alternative.name %></td>
+                    <td><%= link_to 'Ubah', edit_criterion_alternative_criterion_comparison_path(c.criterion, c), class: 'btn btn-warning' %>
                         &emsp;
-                       <%= link_to 'Hapus', [c.alternative, c], method: :delete, class: 'btn btn-danger' %></td>
+                       <%= link_to 'Hapus', [c.criterion, c], method: :delete, class: 'btn btn-danger' %></td>
                   </tr>
                   <% nomor+=1 %>
                   <% end %>

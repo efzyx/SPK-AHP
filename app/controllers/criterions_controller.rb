@@ -4,6 +4,13 @@ class CriterionsController < ApplicationController
 
     def index
       @criterions = Criterion.all.order(id: :asc)
+      begin
+        @allAlt = Alternative.count.to_f
+        @jumlah = (@allAlt/2.to_f) * (@allAlt-1.to_f)
+      rescue
+        @allAlt = 0.to_f
+        @jumlah = 0.to_f
+      end
     end
 
     def new

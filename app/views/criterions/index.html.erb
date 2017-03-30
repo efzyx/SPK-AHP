@@ -21,28 +21,35 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-body table-responsive no-padding">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <td>#</td>
-                <td>Nama Kriteria</td>
-                <td>Aksi</td>
-              </tr>
-            </thead>
-            <tbody>
-              <% nomor = 1 %>
-              <% @criterions.each do |c| %>
-              <tr>
-                <td><%= nomor %></td>
-                <td><%= c.name %></td>
-                <td><%= link_to 'Ubah', edit_criterion_path(c), class: 'btn btn-warning' %>
-                  &emsp;
-                  <%= link_to 'Hapus', c, method: :delete, class: 'btn btn-danger' %></td>
-              </tr>
-              <% nomor+=1 %>
-              <% end %>
-            </tbody>
-          </table>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <td>#</td>
+              <td>Nama Kriteria</td>
+              <td>Status</td>
+              <td>Aksi</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% nomor = 1 %>
+            <% @criterions.each do |c| %>
+            <tr>
+              <td><%= nomor %></td>
+              <td><%= c.name %></td>
+              <td><%= link_to 'Perbandingan', criterion_alternative_criterion_comparisons_path(c), class: 'btn btn-primary' %>
+                &emsp;
+                <span class="badge bg-yellow"><%= ((AlternativeCriterionComparison.where(criterion_id: c.id).count.to_f / @jumlah ) * 100.to_f).round(2) unless @allAlt == 0 %> %</span>
+              </td>
+              <td>
+                <%= link_to 'Ubah', edit_criterion_path(c), class: 'btn btn-warning' %>
+                &emsp;
+                <%= link_to 'Hapus', c, method: :delete, class: 'btn btn-danger' %>
+                </td>
+            </tr>
+            <% nomor+=1 %>
+            <% end %>
+          </tbody>
+        </table>
         </div>
       </div>
     </div>

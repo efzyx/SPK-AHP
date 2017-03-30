@@ -25,7 +25,6 @@
               <tr>
                 <td>#</td>
                 <td>Nama Alternatif</td>
-                <td>Status</td>
                 <td>Aksi</td>
               </tr>
             </thead>
@@ -35,10 +34,6 @@
               <tr>
                 <td><%= nomor %></td>
                 <td><%= a.name %></td>
-                <td><%= link_to 'Perbandingan', alternative_alternative_criterion_comparisons_path(a), class: 'btn btn-primary' %>
-                  &emsp;
-                  <span class="badge bg-yellow"><%= ((AlternativeCriterionComparison.where(alternative_id: a.id).count.to_f / @jumlah ) * 100.to_f).round(2) unless @allKri == 0 %> %</span>
-                </td>
                 <td>
                   <%= link_to 'Ubah', edit_alternative_path(a), class: 'btn btn-warning' %>
                   &emsp;
