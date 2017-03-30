@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
   require 'matrix'
   def index
-    # begin
+    begin
         @dataAve = getAverageAlt
         @aveCri = getAverageCri
         @alternatives = Alternative.all
@@ -17,10 +17,10 @@ class WelcomeController < ApplicationController
           @reschart[ind] = [@altNow.name, r]
           @altNow = @altNow.next
         end
-      # rescue
-      #   @dataAve = nil
-      #   flash[:warning] = 'Error! Periksa kelengkapan data'
-      # end
+      rescue
+        @dataAve = nil
+        flash[:warning] = 'Error! Periksa kelengkapan data'
+      end
   end
 
   def getAverageAlt
