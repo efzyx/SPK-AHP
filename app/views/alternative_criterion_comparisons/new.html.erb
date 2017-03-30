@@ -55,7 +55,7 @@
                     <td><%= c.other_alternative.name %></td>
                     <td><%= link_to 'Ubah', edit_criterion_alternative_criterion_comparison_path(c.criterion, c), class: 'btn btn-warning' %>
                         &emsp;
-                       <%= link_to 'Hapus', [c.criterion, c], method: :delete, class: 'btn btn-danger' %></td>
+                       <%= link_to 'Hapus', [c.criterion, c], method: :delete, class: 'btn btn-danger', data: { confirm: 'Yakin ingin menghapus?' } %></td>
                   </tr>
                   <% nomor+=1 %>
                   <% end %>

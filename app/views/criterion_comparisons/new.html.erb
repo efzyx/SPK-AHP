@@ -54,7 +54,7 @@
                 <td><%= c.other_criterion.name %></td>
                 <td><%= link_to 'Ubah', edit_criterion_comparison_path(c), class: 'btn btn-warning' %>
                     &emsp;
-                   <%= link_to 'Hapus', c, method: :delete, class: 'btn btn-danger' %></td>
+                   <%= link_to 'Hapus', c, method: :delete, class: 'btn btn-danger', data: { confirm: 'Yakin ingin menghapus?' } %></td>
               </tr>
               <% nomor+=1 %>
               <% end %>
