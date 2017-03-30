@@ -46,16 +46,16 @@ class AlternativeCriterionComparisonsController < ApplicationController
         @sumNormalFix[@x] = @average.inject(0, :+)
 
     rescue
-        redirect_to new_alternative_alternative_criterion_comparison_path(@alternative)
+        redirect_to new_criterion_alternative_criterion_comparison_path(@criterion)
         flash[:warning] = 'Lengkapi Perbandingan terlebih dahulu'
     end
   end
 
   def self.get_average
-    @altr = Alternative.all.order(id: :asc)
+    @krite = Criterion.all.order(id: :asc)
     @n = 0
     @averageFix = []
-    @altr.each_with_index do |altrr, indexho|
+    @krite.each_with_index do |altrr, indexho|
       @averageTemp = []
       @data = self.get_comparison_table(altrr.id)
       @c = 0
@@ -93,9 +93,9 @@ class AlternativeCriterionComparisonsController < ApplicationController
   end
 
   def new
-    if Criterion.count > 1
-      @acc = AlternativeCriterionComparison.new(alternative_id: params[:alternative_id])
-      @curretCri = get_comparison_criterion
+    if Alternative.count > 1
+      @acc = AlternativeCriterionComparison.new(criterion_id: params[:criterion_id])
+      @curretAlt = get_comparison_criterion
     else
       @acc = nil
     end
@@ -104,29 +104,29 @@ class AlternativeCriterionComparisonsController < ApplicationController
   def create
     @acc = AlternativeCriterionComparison.new(acc_params)
     if @acc.save
-      redirect_to  new_alternative_alternative_criterion_comparison_path(@alternative), notice: 'Berhasil menambahkan perbandingan'
+      redirect_to  new_criterion_alternative_criterion_comparison_path(@criterion), notice: 'Berhasil menambahkan perbandingan'
     else
-      redirect_to new_alternative_alternative_criterion_comparison_path(@alternative)
+      redirect_to new_criterion_alternative_criterion_comparison_path(@criterion)
       flash[:warning] = 'Gagal menambahkan, periksa kembali'
     end
   end
 
   def edit
-    @curretCri = [@acc.criterion_id, @acc.other_criterion_id]
+    @curretAlt = [@acc.alternative_id, @acc.other_alternative_id]
   end
 
   def update
     if @acc.update(cc_params)
-      redirect_to new_alternative_alternative_criterion_comparison_path(@alternative), notice: 'Berhasil update perbandingan'
+      redirect_to new_criterion_alternative_criterion_comparison_path(@criterion), notice: 'Berhasil update perbandingan'
     else
-      redirect_to new_alternative_alternative_criterion_comparison_path(@alternative)
+      redirect_to new_criterion_alternative_criterion_comparison_path(@criterion)
       flash[:warning] = 'Gagal update, periksa kembali'
     end
   end
 
   def destroy
     @acc.destroy
-    redirect_to new_alternative_alternative_criterion_comparison_path(@alternative), notice: 'Perbandingan berhasil dihapus'
+    redirect_to new_criterion_alternative_criterion_comparison_path(@criterion), notice: 'Perbandingan berhasil dihapus'
   end
 
   private
@@ -136,55 +136,55 @@ class AlternativeCriterionComparisonsController < ApplicationController
   end
 
   def set_alt
-    @alternative = Alternative.find(params[:alternative_id])
+    @criterion = Criterion.find(params[:criterion_id])
   end
 
 
   def acc_params
-    params.require(:alternative_criterion_comparison).permit(:alternative_id, :criterion_id, :comparison, :other_criterion_id)
+    params.require(:alternative_criterion_comparison).permit(:criterion_id, :alternative_id, :comparison, :other_alternative_id)
   end
 
   def get_comparison_criterion
-    @cri = Criterion.all.order(id: :asc) unless Criterion.nil?
-    @ccs = AlternativeCriterionComparison.where(alternative_id: @alternative.id).order(criterion_id: :asc, other_criterion_id: :asc)
-    @sumCri = @cri.count
-    @curretCri1 = nil
-    @curretCri2 = nil
+    @alt = Alternative.all.order(id: :asc) unless Alternative.nil?
+    @ccs = AlternativeCriterionComparison.where(criterion_id: @criterion.id).order(alternative_id: :asc, other_alternative_id: :asc)
+    @sumAlt = @alt.count
+    @curretAlt1 = nil
+    @curretAlt2 = nil
 
     if @ccs.empty?
-      @curretCri1 = @cri.first.id
-      @curretCri2 = @cri.first.next.id
+      @curretAlt1 = @alt.first.id
+      @curretAlt2 = @alt.first.next.id
     else
       @ketemu = false
-      @cri.each do |c|
-        if @ccs.where(criterion_id: c.id).exists?
-          @cri1 = @ccs.where(criterion_id: c.id)
-          @cri2 = @ccs.where(other_criterion_id: c.id)
+      @alt.each do |c|
+        if @ccs.where(alternative_id: c.id).exists?
+          @alt1 = @ccs.where(alternative_id: c.id)
+          @alt2 = @ccs.where(other_alternative_id: c.id)
 
-          @kriteria = c.next
-          @cri1.each do |cr|
+          @alternatif = c.next
+          @alt1.each do |cr|
             @stop = false
-            @cri1.each do |cr2|
-              if cr2.other_criterion_id == @kriteria.id
+            @alt1.each do |cr2|
+              if cr2.other_alternative_id == @alternatif.id
                 @stop = true
               end
               break if @stop == true
             end
             break if @stop == false
-            @kriteria = @kriteria.next
+            @alternatif = @alternatif.next
           end
 
 
-          if (@cri1.count + @cri2.count) < @sumCri-1
-            @curretCri1 = c.id
-            @curretCri2 = @kriteria.id
+          if (@alt1.count + @alt2.count) < @sumAlt-1
+            @curretAlt1 = c.id
+            @curretAlt2 = @alternatif.id
             @ketemu = true
           end
 
         else
           begin
-            @curretCri1 = c.id
-            @curretCri2 = c.next.id
+            @curretAlt1 = c.id
+            @curretAlt2 = c.next.id
             @ketemu = true
           rescue
             @ketemu = true
@@ -193,16 +193,16 @@ class AlternativeCriterionComparisonsController < ApplicationController
         break if @ketemu == true
       end
     end
-    return [@curretCri1, @curretCri2]
+    return [@curretAlt1, @curretAlt2]
   end
 
   def get_comparison_table
-    @kriteria = Criterion.all.order(id: :asc)
-    @sum = @kriteria.count
+    @alternatif = Alternative.all.order(id: :asc)
+    @sum = @alternatif.count
     @data = []
     @n = 0
-    @kriteria.each do |k|
-      @dt = AlternativeCriterionComparison.where(alternative_id: @alternative.id, criterion_id: k.id).order(other_criterion_id: :asc)
+    @alternatif.each do |k|
+      @dt = AlternativeCriterionComparison.where(criterion_id: @criterion.id, alternative_id: k.id).order(other_alternative_id: :asc)
       @i = 0
       @dat = []
       @dt.each do |dt|
@@ -214,7 +214,7 @@ class AlternativeCriterionComparisonsController < ApplicationController
     end
     @fixdata = Array.new(@sum) { Array.new(@sum) }
 
-    @kriteria.each_with_index do |k, i|
+    @alternatif.each_with_index do |k, i|
       (0..i).each do |n|
         if i == n
           @fixdata[i][n] = 1.to_f
@@ -232,12 +232,12 @@ class AlternativeCriterionComparisonsController < ApplicationController
   end
 
   def self.get_comparison_table(*id)
-    @kriteria = Criterion.all.order(id: :asc)
-    @sum = @kriteria.count
+    @alternatif = Alternative.all.order(id: :asc)
+    @sum = @alternatif.count
     @data = []
     @n = 0
-    @kriteria.each do |k|
-      @dt = AlternativeCriterionComparison.where(alternative_id: id, criterion_id: k.id).order(other_criterion_id: :asc)
+    @alternatif.each do |k|
+      @dt = AlternativeCriterionComparison.where(criterion_id: id, alternative_id: k.id).order(other_alternative_id: :asc)
       @i = 0
       @dat = []
       @dt.each do |dt|
@@ -249,7 +249,7 @@ class AlternativeCriterionComparisonsController < ApplicationController
     end
     @fixdata = Array.new(@sum) { Array.new(@sum) }
 
-    @kriteria.each_with_index do |k, i|
+    @alternatif.each_with_index do |k, i|
       (0..i).each do |n|
         if i == n
           @fixdata[i][n] = 1.to_f

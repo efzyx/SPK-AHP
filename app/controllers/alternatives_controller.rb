@@ -4,13 +4,6 @@ class AlternativesController < ApplicationController
 
   def index
     @alternatives = Alternative.all.order(id: :asc)
-    begin
-      @allKri = Criterion.count.to_f
-      @jumlah = (@allKri/2.to_f) * (@allKri-1.to_f)
-    rescue
-      @allKri = 0.to_f
-      @jumlah = 0.to_f
-    end
   end
 
   def new

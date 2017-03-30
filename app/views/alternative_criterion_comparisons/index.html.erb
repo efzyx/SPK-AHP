@@ -1,8 +1,8 @@
-<% @url = alternative_alternative_criterion_comparisons_url %>
+<% @url = criterion_alternative_criterion_comparisons_url %>
 <% @aksi = "Normalisasi" %>
-<% @objek = @alternative.name %>
-<%= link_to 'Ke Kriteria', alternatives_path, class: 'btn btn-primary pull-left' %>
-<%= link_to 'Lengkapi Perbandingan', new_alternative_alternative_criterion_comparison_path, class: 'btn btn-primary pull-right' %>
+<% @objek = @criterion.name %>
+<%= link_to 'Ke Kriteria', criterions_path, class: 'btn btn-primary pull-left' %>
+<%= link_to 'Lengkapi Perbandingan', new_criterion_alternative_criterion_comparison_path, class: 'btn btn-primary pull-right' %>
 <hr>
 <% unless @data.empty? %>
 <div class="row">
@@ -13,13 +13,13 @@
             <thead>
               <tr>
                 <th>#</th>
-                <% @kriteria.each do |k|%>
+                <% @alternatif.each do |k|%>
                 <th><%= k.name %></th>
                 <% end %>
               </tr>
             </thead>
             <tbody>
-              <% @j = @kriteria.first %>
+              <% @j = @alternatif.first %>
                 <% @data.each do |d| %>
                 <tr>
                   <th><%= @j.name %></th>
@@ -52,14 +52,14 @@
             <thead>
               <tr>
                 <th>#</th>
-                <% @kriteria.each do |k|%>
+                <% @alternatif.each do |k|%>
                 <th><%= k.name %></th>
                 <% end %>
                 <th>Rata-rata</th>
               </tr>
             </thead>
             <tbody>
-              <% @j = @kriteria.first %>
+              <% @j = @alternatif.first %>
                 <% @normalFix.each_with_index do |nf, inde| %>
                 <tr>
                   <th><%= @j.name %></th>

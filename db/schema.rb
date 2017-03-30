@@ -13,15 +13,15 @@
 ActiveRecord::Schema.define(version: 20170329185815) do
 
   create_table "alternative_criterion_comparisons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer  "alternative_id"
-    t.integer  "criterion_id",                  null: false
-    t.float    "comparison",         limit: 24
-    t.integer  "other_criterion_id",            null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.integer  "criterion_id"
+    t.integer  "alternative_id",                  null: false
+    t.float    "comparison",           limit: 24
+    t.integer  "other_alternative_id",            null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.index ["alternative_id"], name: "index_alternative_criterion_comparisons_on_alternative_id", using: :btree
     t.index ["criterion_id"], name: "index_alternative_criterion_comparisons_on_criterion_id", using: :btree
-    t.index ["other_criterion_id"], name: "index_alternative_criterion_comparisons_on_other_criterion_id", using: :btree
+    t.index ["other_alternative_id"], name: "index_alternative_criterion_comparisons_on_other_alternative_id", using: :btree
   end
 
   create_table "alternatives", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -63,5 +63,5 @@ ActiveRecord::Schema.define(version: 20170329185815) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "alternative_criterion_comparisons", "alternatives"
+  add_foreign_key "alternative_criterion_comparisons", "criterions"
 end
