@@ -1,8 +1,71 @@
 <% @aksi = "Hasil" %>
 <% @objek = "Beranda" %>
 
+<% if flash[:notice] %>
+  <div class="callout callout-info">
+    <p><%= flash[:notice] %></p>
+  </div>
+<% end %>
+
+<% if flash[:warning] %>
+  <div class="callout callout-danger">
+    <p><%= flash[:warning] %></p>
+  </div>
+<% end %>
 
 <% unless @dataAve.empty? %>
+<div class="row">
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-aqua">
+      <div class="inner">
+        <h3><%= Alternative.count %></h3>
+
+        <p>Alternatif</p>
+      </div>
+      <a href="<%= alternatives_url %>" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-green">
+      <div class="inner">
+        <h3><%= Criterion.count %></h3>
+
+        <p>Kriteria</p>
+      </div>
+      <a href="<%= criterions_url %>" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-yellow">
+      <div class="inner">
+        <h3><%= (@consist * 100).round(3) %> %</h3>
+
+        <p>Konsistensi</p>
+      </div>
+    </div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-red">
+      <div class="inner">
+        <% begin %>
+        <h3><%= Alternative.all.order(id: :asc)[@result.each_with_index.max[1]].name %></h3>
+        <% rescue %>
+        <h3>Belum ada</h3>
+        <% end %>
+        <p>Alternatif Terbaik</p>
+      </div>
+    </div>
+  </div>
+  <!-- ./col -->
+</div>
+
 <div class="row">
   <div class="col-md-12">
     <div class="box">
@@ -89,15 +152,7 @@
   </div>
 
 <% else %>
-    <% if flash[:notice] %>
-      <div class="callout callout-info">
-        <p><%= flash[:notice] %></p>
-      </div>
-    <% end %>
-
-    <% if flash[:warning] %>
-      <div class="callout callout-danger">
-        <p><%= flash[:warning] %></p>
-      </div>
-    <% end %>
-  <% end %>
+<div class="callout callout-danger">
+  <p>Data belum lengkap!</p>
+</div>
+<% end %>
