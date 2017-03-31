@@ -121,7 +121,7 @@ class CriterionComparisonsController < ApplicationController
 
   def self.get_matrix_cri
     @data = self.get_comparison_table
-    return Matrix.columns(@data)
+    return Matrix.rows(@data)
   end
   private
   def cc_params
