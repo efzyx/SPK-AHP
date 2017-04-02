@@ -4,8 +4,8 @@ class WelcomeController < ApplicationController
     begin
         @dataAve = getAverageAlt
         @aveCri = getAverageCri
-        @alternatives = Alternative.all
-        @criterions = Criterion.all
+        @alternatives = Alternative.all.order(id: :asc)
+        @criterions = Criterion.all.order(id: :asc)
         @matriksAlt = Matrix.columns(@dataAve)
         @matriksCri = Matrix.column_vector(@aveCri)
 
