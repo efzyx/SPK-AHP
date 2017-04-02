@@ -11,6 +11,7 @@ class AlternativesController < ApplicationController
   end
 
   def edit
+    
   end
 
   def create
