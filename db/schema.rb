@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20170329185815) do
 
-  create_table "alternative_criterion_comparisons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "alternative_criterion_comparisons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "criterion_id"
     t.integer  "alternative_id",                  null: false
     t.float    "comparison",           limit: 24
@@ -24,13 +24,13 @@ ActiveRecord::Schema.define(version: 20170329185815) do
     t.index ["other_alternative_id"], name: "index_alternative_criterion_comparisons_on_other_alternative_id", using: :btree
   end
 
-  create_table "alternatives", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "alternatives", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "criterion_comparisons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "criterion_comparisons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "criterion_id",                  null: false
     t.float    "comparison",         limit: 24
     t.integer  "other_criterion_id",            null: false
@@ -40,13 +40,13 @@ ActiveRecord::Schema.define(version: 20170329185815) do
     t.index ["other_criterion_id"], name: "index_criterion_comparisons_on_other_criterion_id", using: :btree
   end
 
-  create_table "criterions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "criterions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

@@ -1,14 +1,26 @@
 # Sistem Pendukung Keputusan metode AHP
 
+## How to Install
+  - git clone `https://github.com/fauzipadlaw/spk-ahp.git`
+  - `cd spk-ahp && bundle install`
+  - configure database in `config/database.yml`
+  - run `rails db:create`
+  - run `rails db:migrate`
+  - run `rails db:seed`
+  - run `rails s`
+  - Open `localhost:3000` on your browser
+
+
 ## Ruby
-    ruby 2.3.3p222 (2016-11-21 revision 56859) [i386-mingw32]
+    Tested on ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]
 
 ## Database
-    Tested on mysql Ver 15.1 Distrib 10.1.19-MariaDB, for Win32 (AMD64)
+    Tested on mysql  Ver 15.1 Distrib 10.1.32-MariaDB, for Linux (x86_64) using readline 5.1
 
 ## Gem
-    bootstrap-sass
-    font-awesome-sass
-    chartkick
-    devise
-    icheck-rails
+    gem "rails-assets-adminlte"
+    gem 'bootstrap-sass'
+    gem 'font-awesome-sass'
+    gem 'chartkick'
+    gem 'devise'
+    gem 'icheck-rails'
